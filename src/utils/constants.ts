@@ -1,0 +1,1 @@
+export const INITIAL_SORT_STATE = {'priority': 3, 'date': 3, 'status': 3};

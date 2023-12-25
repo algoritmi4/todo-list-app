@@ -47,7 +47,10 @@ export default {
       },
       backgroundImage: {
         'cross': "url('images/close-cross.svg')",
-        'hatch': 'repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px)'
+        'hatch': 'repeating-linear-gradient(-60deg, #555 0, #555 1px, transparent 1px, transparent 5px)',
+        'up-arr': "url('images/up-arrow.png')",
+        'down-arr': "url('images/down-arrow.png')",
+        'arrows': "url('images/up-down-arrows.png')"
       }
     }
   },

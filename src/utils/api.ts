@@ -18,7 +18,14 @@ class Api {
   }
 
   getTasks() {
-    return fetch(`${this._url}?_sort=priority&_order=DESC`, {
+    return fetch(`${this._url}`, {
+      method: 'GET',
+      headers: this._headers
+    }).then((res) => res.json());
+  }
+
+  getSortedTasks(prop: string, order: string) {
+    return fetch(`${this._url}?_sort=${prop}&_order=${order}`, {
       method: 'GET',
       headers: this._headers
     }).then((res) => res.json());

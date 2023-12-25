@@ -4,21 +4,25 @@ import { ICard } from '../utils/interfaces/Card.interface';
 import loupeIcon from '../images/loupe-icon.png';
 import { FormEvent, useState } from 'react';
 import TableTitle from './TableTitle';
+import { ISortState } from '../utils/interfaces/SortState.interface';
 
 function Todo({
   data,
+  sortState,
   handleOpenEditPopup,
-  handleOpenCreatePopup
+  handleOpenCreatePopup,
+  handleSortTasks
 }: {
   data: ICard[];
+  sortState: ISortState;
   handleOpenEditPopup: (card: ICard) => void;
   handleOpenCreatePopup: () => void;
+  handleSortTasks: (prop: string, order: number) => void;
 }) {
   const [inputValue, setInputValue] = useState<string>('');
 
   function handleInputValue(e: FormEvent<HTMLInputElement>) {
     setInputValue(e.currentTarget.value);
-    console.log(e.currentTarget.value);
   }
 
   return (
@@ -33,7 +37,7 @@ function Todo({
         </label>
       </div>
       <div className="w-full box-border">
-        <TableTitle />
+        <TableTitle sortState={ sortState } handleSortTasks={ handleSortTasks } />
         {data.filter((el) => el.name.toLowerCase().includes(inputValue.toLowerCase())).map((el: ICard, index) => <Card handleOpenEditPopup={ handleOpenEditPopup } info={ el } key={ index }/>)}
       </div>
     </main>
