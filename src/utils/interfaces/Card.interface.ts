@@ -1,7 +1,7 @@
 export interface ICard {
+  id?: number;
   name: string;
-  priority: string;
+  priority: number;
   date: string;
-  status: string;
-  startCard?: boolean;
+  status: number;
 }
