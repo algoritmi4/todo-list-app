@@ -6,7 +6,7 @@ function Card({ info, handleOpenEditPopup }: { info: ICard, handleOpenEditPopup:
   `${String(date.getDate()).length < 2 ? '0' : ''}${date.getDate()}.${String(date.getMonth()).length < 2 ? '0' : ''}${date.getMonth() + 1}.${date.getFullYear()}`
 
   return (
-    <div className="text-white border-2 rounded flex items-center max-h-8 w-full box-border px-1.5 py-1 mt-5 cursor-pointer hover:opacity-70 hover:ease-linear duration-100" onClick={() => handleOpenEditPopup(info)}>
+    <div className="text-white border-2 rounded flex items-center max-h-8 w-full box-border px-1.5 py-1 mt-5 cursor-pointer hover:opacity-70 hover:ease-linear duration-100 last-of-type:mb-3" onClick={() => handleOpenEditPopup(info)}>
       <p className="text-ellipsis overflow-hidden whitespace-nowrap w-1/2">{info.name}</p>
       <div className="w-1/6">
         <p className={
@@ -17,7 +17,17 @@ function Card({ info, handleOpenEditPopup }: { info: ICard, handleOpenEditPopup:
         <p className="text-center">{formatedDate}</p>
       </div>
       <div className="w-1/6">
-        <p className="text-center">{info.status === 3 ? 'Выполнено' : info.status === 2 ? 'В процессе' : info.status === 1 ? 'Нужно начать' : 'Статус'}</p>
+        {
+          info.status === 3 ? (
+            <p className={`text-center text-red-light`}>&#8226; Нужно начать</p>
+          ) : info.status === 2 ? (
+            <p className={`text-center text-gray-light`}>&#8635; В процессе</p>
+          ) : info.status === 1 ? (
+            <p className={`text-center text-green-light`}>&#10003; Выполнено</p>
+          ) : (
+            <p className={`text-center`}>Статус</p>
+          )
+        }
       </div>
     </div>
   );

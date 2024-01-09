@@ -1,26 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Popup from "./Popup";
 import Select, { SingleValue } from 'react-select';
-import { ICard } from "../utils/interfaces/Card.interface";
-import EditPopupOptions from "../utils/interfaces/EditPopupOptions.interface";
-
-interface SelectedItem {
-  value: number;
-  label: string;
-}
-
-interface EditPopupProps {
-  editPopup: EditPopupOptions,
-  handleCloseEditPopup: () => void,
-  handleAddTask: (arg: ICard) => void;
-  handleDeleteTask: (arg: number) => void;
-  handleEditTask: (id:number, card: ICard) => void;
-}
-
-interface SelectValues {
-  priority: SelectedItem | null;
-  status: SelectedItem | null;
-}
+import { INITIAL_INPUT_VALUES, INITIAL_SELECT_VALUES, PRIORITY_OPTIONS, STATUS_OPTIONS } from "../utils/constants";
+import { IEditPopupProps } from "../utils/interfaces/EditPopupProps";
+import { ISelectedItem } from "../utils/interfaces/SelectedItems.interface";
+import { ISelectValues } from "../utils/interfaces/SelectValues.interface";
 
 function EditPopup({
   editPopup,
@@ -28,16 +12,16 @@ function EditPopup({
   handleAddTask,
   handleDeleteTask,
   handleEditTask
-}: EditPopupProps) {
-  const [inputValues, setInputValues] = useState({'title':'', 'date': ''});
-  const [selectValues, setSelectValues] = useState<SelectValues>({priority: null, status: null});
+}: IEditPopupProps) {
+  const [inputValues, setInputValues] = useState(INITIAL_INPUT_VALUES);
+  const [selectValues, setSelectValues] = useState<ISelectValues>(INITIAL_SELECT_VALUES);
 
   const isCreateButtonActive = inputValues['title'] && inputValues['date'] && selectValues.priority && selectValues.status;
 
   useEffect(() => {
     if (editPopup.isOpen && editPopup.card) {
-      const priority = priorityOptions.find((el) => el.value === editPopup.card.priority) || null;
-      const status = statusOptions.find((el) => el.value === editPopup.card.status) || null;
+      const priority = PRIORITY_OPTIONS.find((el) => el.value === editPopup.card.priority) || null;
+      const status = STATUS_OPTIONS.find((el) => el.value === editPopup.card.status) || null;
 
       setInputValues({'title': editPopup.card.name, 'date': editPopup.card.date});
       setSelectValues({priority, status});
@@ -50,11 +34,11 @@ function EditPopup({
     setInputValues({...inputValues, [name]: value});
   }
 
-  function handleSelectPriority(selectedItem: SingleValue<SelectedItem>) {
+  function handleSelectPriority(selectedItem: SingleValue<ISelectedItem>) {
     setSelectValues((state) => ({...state, priority: selectedItem}));
   }
 
-  function handleSelectStatus(selectedItem: SingleValue<SelectedItem>) {
+  function handleSelectStatus(selectedItem: SingleValue<ISelectedItem>) {
     setSelectValues((state) => ({...state, status: selectedItem}));
   }
 
@@ -73,7 +57,9 @@ function EditPopup({
     handleReset();
 
     if (selectValues.priority && selectValues.status && editPopup.isCreating) {
-      return handleAddTask({name: inputValues['title'], priority: selectValues.priority.value, date: inputValues['date'], status: selectValues.status.value});
+      return handleAddTask({
+        name: inputValues['title'], priority: selectValues.priority.value, date: inputValues['date'], status: selectValues.status.value
+      });
     }
 
     if (selectValues.priority && selectValues.status && editPopup.card.id) {
@@ -86,18 +72,6 @@ function EditPopup({
     }
   }
 
-  const priorityOptions = [
-    {value: 3, label: 'Высокий'},
-    {value: 2, label: 'Средний'},
-    {value: 1, label: 'Низкий'}
-  ]
-
-  const statusOptions = [
-    {value: 3, label: 'Выполнено'},
-    {value: 2, label: 'В процессе'},
-    {value: 1, label: 'Нужно начать'},
-  ]
-
   return (
     <Popup isOpen={editPopup.isOpen} handleClose={handleClose} children={
       <form className="bg-white flex flex-col px-12 py-8 rounded-l text-black box-border" onSubmit={handleSubmit}>
@@ -106,15 +80,13 @@ function EditPopup({
           <p className="mt-12 font-medium">Название задачи</p>
           <p className="self-end text-sm">{`${inputValues['title'].length}/100`}</p>
         </div>
-        <label htmlFor="priority-input" className="border-2 rounded-sm mt-1 ml-auto px-1.5 w-80 min-h-[52px] cursor-text box-border">
-          <textarea id="priority-input" name="title" value={inputValues['title']} maxLength={100} onChange={handleInputValues} className="bg-transparent outline-none py-0.5 w-full h-full max-h-20" />
-        </label>
+        <textarea id="priority-input" name="title" value={inputValues['title']} maxLength={100} onChange={handleInputValues} className="bg-transparent outline-none w-80 px-1.5 max-h-28 border border-gray rounded-sm mt-1 min-h-[70px] cursor-text box-border focus:border-black focus:border-2" />
         <p className="mt-5">Приоритет задачи</p>
-        <Select options={priorityOptions} placeholder="Выберите..." value={selectValues.priority} onChange={handleSelectPriority} className="mt-1" />
+        <Select options={PRIORITY_OPTIONS} placeholder="Выберите..." value={selectValues.priority} onChange={handleSelectPriority} className="mt-1" />
         <p className="mt-5">Нужно выполнить до</p>
-        <input type="date" name="date" value={inputValues['date']} onChange={handleInputValues} className="border border-grey rounded-sm px-2 py-1.5 mt-1" />
+        <input type="date" name="date" value={inputValues['date']} onChange={handleInputValues} className="border border-gray rounded-sm px-2 py-1.5 mt-1" />
         <p className="mt-5">Статус</p>
-        <Select options={statusOptions} placeholder="Выберите..." value={selectValues.status} onChange={handleSelectStatus} className="mt-1" />
+        <Select options={STATUS_OPTIONS} placeholder="Выберите..." value={selectValues.status} onChange={handleSelectStatus} className="mt-1" />
         <div className="flex justify-between mt-7">
           <button type="submit" className={`bg-green text-white rounded w-32 h-8 ${isCreateButtonActive ? "hover:opacity-70 duration-100" : "bg-hatch"} ${editPopup.isCreating ? "w-full" : ""}`} disabled={!isCreateButtonActive}>{editPopup.isCreating ? "Создать" : "Готово"}</button>
           <button type="button" className={`bg-red text-white rounded w-32 h-8 hover:opacity-70 duration-100 ${editPopup.isCreating ? "hidden" : ""}`} onClick={() => editPopup.card.id ? handleDeleteTask(editPopup.card.id) : null}>Удалить</button>

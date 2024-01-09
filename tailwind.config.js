@@ -18,13 +18,16 @@ export default {
     },
     extend: {
       colors: {
+        'gray': 'hsl(0, 0%, 80%)',
         'gray-dark': '#141414',
+        'gray-light': '#DCDCDC',
         'blue': '#00bfff',
         'indigo': '#4b0082',
         'red': '#9b2d30',
+        'red-light': '#c10020',
         'orange': '#ff7e00',
         'green': '#00382b',
-        'grey': 'hsl(0, 0%, 80%)'
+        'green-light': '#66ff00',
       },
       borderRadius: {
         'sm': '4px',

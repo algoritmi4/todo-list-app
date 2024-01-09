@@ -1,64 +1,38 @@
+import axios from "axios";
 import { ICard } from "./interfaces/Card.interface";
 
+const apiOptions = axios.create({
+  baseURL: 'http://localhost:3000/tasks/',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+});
 class Api {
-  private _url: RequestInfo;
-  private _headers: HeadersInit;
-
-  constructor(url: string, headers: HeadersInit) {
-    this._url = url;
-    this._headers = headers;
-  }
-
-  _getResponseData(res: Response) {
-    if (!res.ok) {
-      return Promise.reject(res);
-    }
-
-    return res.json();
-  }
-
   getTasks() {
-    return fetch(`${this._url}`, {
-      method: 'GET',
-      headers: this._headers
-    }).then((res) => res.json());
+    return apiOptions.get('');
   }
 
   getSortedTasks(prop: string, order: string) {
-    return fetch(`${this._url}?_sort=${prop}&_order=${order}`, {
-      method: 'GET',
-      headers: this._headers
-    }).then((res) => res.json());
+    return apiOptions.get<ICard[]>('', {
+      params: {
+        _sort: prop,
+        _order: order
+      }
+    })
   }
 
   addTask(card: ICard) {
-    return fetch(`${this._url}/`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify(card)
-    }).then((res) => res.json());
+    return apiOptions.post<ICard>('', card);
   }
 
   deleteTask(id: number) {
-    return fetch(`${this._url}/${id}`, {
-      method: 'DELETE',
-      headers: this._headers
-    }).then((res) => res.json());
+    return apiOptions.delete(`${id}`);
   }
 
   editTask(id: number, card: ICard) {
-    return fetch(`${this._url}/${id}`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify(card)
-    }).then((res) => res.json());
+    return apiOptions.patch<ICard>(`${id}`, card);
   }
 }
 
-const api = new Api('http://localhost:3000/tasks', {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  }
-)
-
-export default api;
+export const api = new Api();

@@ -10,11 +10,9 @@ function Popup({
   children: ReactNode;
 }) {
   useEffect(() => {
-    if (isOpen) {
-      return document.addEventListener('keydown', handleEscClose);
-    } else {
-      return document.removeEventListener('keydown', handleEscClose);
-    }
+    document.addEventListener('keydown', handleEscClose);
+
+    return document.removeEventListener('keydown', handleEscClose);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
