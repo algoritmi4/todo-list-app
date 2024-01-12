@@ -5,14 +5,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "serve": "json-server --watch ./src/db/data.json --port 3001",
+    "serve": "json-server --watch ./db.json --port 3001",
     "dev": "vite",
-    "save-json-api": "node ./src/scripts/save-json-api.ts",
-    "build": "tsc && vite build && npm run save-json-api",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "predeploy": "rm -rf build && vite build",
-    "deploy": "gh-pages -d build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "-": "^0.0.1",
