@@ -1,13 +1,18 @@
 {
   "name": "todo-list-app",
   "private": true,
+  "homepage": "https://algoritmi4.github.io/todo-list-app/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "serve": "json-server --watch ./src/db/data.json --port 3001",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "save-json-api": "node ./src/scripts/save-json-api.ts",
+    "build": "tsc && vite build && npm run save-json-api",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "rm -rf build && vite build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "-": "^0.0.1",
@@ -20,6 +25,7 @@
     "tailwindcss": "^3.3.7"
   },
   "devDependencies": {
+    "@types/node": "^20.11.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -28,6 +34,8 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "gh-pages": "^6.1.1",
+    "node-fs": "^0.1.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

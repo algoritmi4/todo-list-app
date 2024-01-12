@@ -7,10 +7,10 @@
 ## Стек
 - HTML5
 - CSS3
+- PostCSS
 - TailwindCSS
-- адаптивная верстка
 - TypeScript
-- React/Redux
+- React
 - Vite
 
 ## Функциональность

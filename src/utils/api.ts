@@ -1,8 +1,9 @@
 import axios from "axios";
 import { ICard } from "./interfaces/Card.interface";
+import { API_BASE_URL } from "./constants";
 
 const apiOptions = axios.create({
-  baseURL: 'http://localhost:3000/tasks/',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',

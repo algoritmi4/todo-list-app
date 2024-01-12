@@ -118,7 +118,7 @@ function App() {
           handleEditTask={ handleEditTask }
         />
         <Header />
-        <img src={cosmos} className="w-full h-80 object-cover" alt="Фото Земли" />
+        <img src={cosmos} className="w-full h-80 object-cover lg:h-60 md:h-40 xs:h-32" alt="Фото Земли" />
         <Todo
           data={ data }
           sortState={ sortState }
