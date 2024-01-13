@@ -21,4 +21,4 @@ export const INITIAL_SELECT_VALUES = {priority: null, status: null};
 export const API_BASE_URL =
   import.meta.env.VITE_NODE_ENV === 'develop'
     ? 'http://localhost:3001/tasks/'
-    : 'https://raw.githubusercontent.com/algoritmi4/todo-list-app/main/static/db/tasks.json';
+    : 'https://todo-list-back-fqpj.onrender.com/tasks/';
