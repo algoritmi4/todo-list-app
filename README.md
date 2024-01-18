@@ -29,4 +29,4 @@ https://gilded-crostata-2c6d85.netlify.app
 
 ## Демонстрация работы проекта:
 
-![image](https://github.com/algoritmi4/todo-list-app/assets/117747237/8733b379-ae78-42a9-b4e5-48d5bcac6762)
+![image](https://github.com/algoritmi4/todo-list-app/assets/117747237/0f1b780f-174d-4e18-91c2-039025bd17df)
