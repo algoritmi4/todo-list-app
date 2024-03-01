@@ -43,7 +43,7 @@ function Todo({
               <TableTitle sortState={ sortState } handleSortTasks={ handleSortTasks } />
               {data.filter((el) => el.name.toLowerCase().includes(inputValue.toLowerCase())).map((el: ICard, index) => <Card handleOpenEditPopup={ handleOpenEditPopup } info={ el } key={ index }/>)}
             </>
-          ) : <h3 className="text-center text-2xl mt-4">Список дел пуст</h3>
+          ) : <h3 className="text-center text-2xl mt-4">Список дел пуст. Если вы только что открыли страницу, то подождите 10-15 секунд пока поднимется сервер.</h3>
         }
       </div>
     </main>
