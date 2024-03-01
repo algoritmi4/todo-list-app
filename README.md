@@ -28,3 +28,5 @@ https://gilded-crostata-2c6d85.netlify.app
 5) Запустить в браузере адрес localhost:5173. Готово, можно тестировать!
 
 ## Демонстрация работы проекта:
+
+![image](https://github.com/algoritmi4/todo-list-app/assets/117747237/0f1b780f-174d-4e18-91c2-039025bd17df)
